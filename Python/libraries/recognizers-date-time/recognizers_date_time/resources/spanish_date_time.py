@@ -642,4 +642,5 @@ class SpanishDateTime:
     QuarterTypeRegex = f'(trimestral(es|mente)?)$'
     SemiAnnualTypeRegex = f'(semestral(es|mente)?)$'
     YearTypeRegex = f'(años?|anual(mente)?)$'
+    ThisTerms = [r'esta']
 # pylint: enable=line-too-long
