@@ -92,8 +92,8 @@ class ItalianAgeExtractorConfiguration(ItalianNumberWithUnitExtractorConfigurati
     def __init__(self, culture_info: CultureInfo = None):
         super().__init__(culture_info)
         self._suffix_list = ItalianNumericWithUnit.AgeSuffixList
-        self._prefix_list = ItalianNumericWithUnit.AgePrefixList
-        self._ambiguous_unit_list = ItalianNumericWithUnit.AmbiguousAgeUnitList
+        self._prefix_list = {}
+        self._ambiguous_unit_list = {}
 
 
 class ItalianCurrencyExtractorConfiguration(ItalianNumberWithUnitExtractorConfiguration):

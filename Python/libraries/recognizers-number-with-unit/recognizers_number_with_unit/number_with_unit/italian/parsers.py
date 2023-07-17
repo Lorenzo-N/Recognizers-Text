@@ -43,3 +43,27 @@ class ItalianCurrencyParserConfiguration(ItalianNumberWithUnitParserConfiguratio
         self.add_dict_to_unit_map(ItalianNumericWithUnit.CurrencyPrefixList)
         self.currency_name_to_iso_code_map = ItalianNumericWithUnit.CurrencyNameToIsoCodeMap
         self.currency_fraction_code_list = ItalianNumericWithUnit.FractionalUnitNameToCodeMap
+
+
+class ItalianAgeParserConfiguration(ItalianNumberWithUnitParserConfiguration):
+    def __init__(self, culture_info: CultureInfo = None):
+        super().__init__(culture_info)
+        self.add_dict_to_unit_map(ItalianNumericWithUnit.AgeSuffixList)
+
+
+class ItalianDimensionParserConfiguration(ItalianNumberWithUnitParserConfiguration):
+    def __init__(self, culture_info: CultureInfo = None):
+        super().__init__(culture_info)
+        self.add_dict_to_unit_map(ItalianNumericWithUnit.InformationSuffixList)
+        self.add_dict_to_unit_map(ItalianNumericWithUnit.AreaSuffixList)
+        self.add_dict_to_unit_map(ItalianNumericWithUnit.LengthSuffixList)
+        self.add_dict_to_unit_map(ItalianNumericWithUnit.SpeedSuffixList)
+        self.add_dict_to_unit_map(ItalianNumericWithUnit.VolumeSuffixList)
+        self.add_dict_to_unit_map(ItalianNumericWithUnit.WeightSuffixList)
+
+
+class ItalianTemperatureParserConfiguration(ItalianNumberWithUnitParserConfiguration):
+    def __init__(self, culture_info: CultureInfo = None):
+        super().__init__(culture_info)
+        self._connector_token = None
+        self.add_dict_to_unit_map(ItalianNumericWithUnit.TemperatureSuffixList)

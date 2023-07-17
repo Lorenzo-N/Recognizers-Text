@@ -92,6 +92,14 @@ class ItalianNumberParserConfiguration(NumberParserConfiguration):
     def round_multiplier_regex(self) -> Pattern:
         return self._round_multiplier_regex
 
+    @property
+    def relative_reference_offset_map(self) -> Dict[str, str]:
+        return self._relativeReferenceOffsetMap
+
+    @property
+    def relative_reference_relative_to_map(self) -> Dict[str, str]:
+        return self._relativeReferenceRelativeToMap
+
     def __init__(self, culture_info=None):
         if culture_info is None:
             culture_info = CultureInfo(Culture.Italian)
@@ -122,6 +130,8 @@ class ItalianNumberParserConfiguration(NumberParserConfiguration):
             ItalianNumeric.DigitalNumberRegex)
         self._round_multiplier_regex = RegExpUtility.get_safe_reg_exp(
             ItalianNumeric.RoundMultiplierRegex)
+        self._relativeReferenceOffsetMap = ItalianNumeric.RelativeReferenceOffsetMap
+        self._relativeReferenceRelativeToMap = ItalianNumeric.RelativeReferenceRelativeToMap
 
     def normalize_token_set(self, tokens: List[str], context: ParseResult) -> List[str]:
         frac_words: List[str] = list()

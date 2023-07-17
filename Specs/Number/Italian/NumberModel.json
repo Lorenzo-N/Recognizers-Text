@@ -1,5 +1,95 @@
 [
   {
+    "Input": " mille e cinquecento tre",
+    "NotSupportedByDesign": "javascript,java",
+    "Results": [
+      {
+        "Text": "mille e cinquecento tre",
+        "TypeName": "number",
+        "Resolution": {
+          "value": "1503"
+        },
+        "Start": 1,
+        "End": 23
+      }
+    ]
+  },
+  {
+    "Input": " millecinquecentotre",
+    "NotSupportedByDesign": "javascript,java",
+    "Results": [
+      {
+        "Text": "millecinquecentotre",
+        "TypeName": "number",
+        "Resolution": {
+          "value": "1503"
+        },
+        "Start": 1,
+        "End": 19
+      }
+    ]
+  },
+  {
+    "Input": " mille e cinquecentotre",
+    "NotSupportedByDesign": "javascript,java",
+    "Results": [
+      {
+        "Text": "mille e cinquecentotre",
+        "TypeName": "number",
+        "Resolution": {
+          "value": "1503"
+        },
+        "Start": 1,
+        "End": 22
+      }
+    ]
+  },
+  {
+    "Input": "duemila cinquecento quattro",
+    "NotSupportedByDesign": "javascript,java",
+    "Results": [
+      {
+        "Text": "duemila cinquecento quattro",
+        "TypeName": "number",
+        "Resolution": {
+          "value": "2504"
+        },
+        "Start": 0,
+        "End": 26
+      }
+    ]
+  },
+  {
+    "Input": "meno di 7000",
+    "NotSupportedByDesign": "javascript,java",
+    "Results": [
+      {
+        "Text": "7000",
+        "TypeName": "number",
+        "Resolution": {
+          "value": "7000"
+        },
+        "Start": 8,
+        "End": 11
+      }
+    ]
+  },
+  {
+    "Input": "-7000",
+    "NotSupportedByDesign": "javascript,java",
+    "Results": [
+      {
+        "Text": "-7000",
+        "TypeName": "number",
+        "Resolution": {
+          "value": "-7000"
+        },
+        "Start": 0,
+        "End": 4
+      }
+    ]
+  },
+  {
     "Input": "cinque",
     "NotSupportedByDesign": "javascript,java",
     "Results": [

@@ -126,6 +126,14 @@ class NumberParserConfiguration(ABC):
     def round_multiplier_regex(self) -> Pattern:
         pass
 
+    @property
+    def relative_reference_offset_map(self) -> Dict[str, str]:
+        return None
+
+    @property
+    def relative_reference_relative_to_map(self) -> Dict[str, str]:
+        return None
+
 
 class BaseNumberParser(Parser):
     def __init__(self, config: NumberParserConfiguration):
@@ -139,7 +147,7 @@ class BaseNumberParser(Parser):
         self.round_number_set: List[str] = list(
             self.config.round_number_map.keys())
         self.is_non_standard_separator_variant = self.config.culture_info.code in \
-            self.config.non_standard_separator_variants
+                                                 self.config.non_standard_separator_variants
 
     def parse(self, source: ExtractResult) -> Optional[ParseResult]:
         # Check if the parser is configured to support specific types
@@ -155,12 +163,14 @@ class BaseNumberParser(Parser):
 
         # Resolve symbol prefix
         is_negative = False
-        match_negative = regex.search(
-            self.config.negative_number_sign_regex, source.text)
 
-        if match_negative:
-            is_negative = True
-            source.text = source.text[len(match_negative[1]):]
+        match_negative = False
+        # match_negative = regex.search(
+        #     self.config.negative_number_sign_regex, source.text)
+        #
+        # if match_negative:
+        #     is_negative = True
+        #     source.text = source.text[len(match_negative[1]):]
 
         if isinstance(source.data, List):
             ers = source.data
@@ -417,6 +427,15 @@ class BaseNumberParser(Parser):
 
         int_part_real = self.__get_int_value(matches)
 
+        # Ordinal number with relative reference
+        if int_part_real == 0 and len(num_group) == 1 and self.config.relative_reference_offset_map and \
+                int_part in self.config.relative_reference_offset_map:
+            if self.config.relative_reference_relative_to_map[int_part] == 'current':
+                result.value = -200 + int(self.config.relative_reference_offset_map[int_part])
+            else:  # end
+                result.value = - 100 + int(self.config.relative_reference_offset_map[int_part])
+            return result
+
         point_part_real = Decimal(0)
         if len(num_group) == 2:
             point_part = num_group[1]
@@ -497,7 +516,7 @@ class BaseNumberParser(Parser):
 
     def __is_mergeable(self, former: float, later: float) -> bool:
         return (abs(former % 1) < sys.float_info.epsilon) and (abs(later % 1) < sys.float_info.epsilon) and \
-               former > later > 0 and len(str(int(former))) > len(str(int(later)))
+            former > later > 0 and len(str(int(former))) > len(str(int(later)))
 
     # Test if big and combine with small.
     # e.g. 'hundred' can combine with 'thirty' but 'twenty' can't combine with 'thirty'.
@@ -512,7 +531,7 @@ class BaseNumberParser(Parser):
         end_flag = 1
 
         # Scan from end to start, find the end word
-        for i in range(len(matches) - 1, 0, -1):
+        for i in range(len(matches) - 1, -1, -1):
             if matches[i] in self.round_number_set:
                 # if false,then continue, you will meet hundred first, then thousand.
                 if end_flag > self.config.round_number_map[matches[i]]:
@@ -601,7 +620,7 @@ class BaseNumberParser(Parser):
             scale = Decimal(0.1)
             for match in matches:
                 result += scale * \
-                    Decimal(self.config.cardinal_number_map[match])
+                          Decimal(self.config.cardinal_number_map[match])
                 scale *= Decimal(0.1)
 
         return result

@@ -1,5 +1,29 @@
 [
   {
+    "Input": "Intendi \"prossimo\" o \"ultimo\"?",
+    "NotSupported": "javascript, java",
+    "Results": [
+      {
+        "Text": "prossimo",
+        "Start": 9,
+        "End": 16,
+        "TypeName": "ordinal",
+        "Resolution": {
+          "value": "-199"
+        }
+      },
+      {
+        "Text": "ultimo",
+        "Start": 22,
+        "End": 27,
+        "TypeName": "ordinal",
+        "Resolution": {
+          "value": "-100"
+        }
+      }
+    ]
+  },
+  {
     "Input": "tre trilionesimo",
     "NotSupportedByDesign": "python,javascript,java",
     "Results": [

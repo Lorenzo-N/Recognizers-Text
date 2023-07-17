@@ -59,8 +59,10 @@ from .portuguese.parsers import (PortugueseCurrencyParserConfiguration,
                                  PortugueseAgeParserConfiguration)
 from .german.extractors import GermanCurrencyExtractorConfiguration
 from .german.parsers import GermanCurrencyParserConfiguration
-from .italian.extractors import ItalianCurrencyExtractorConfiguration
-from .italian.parsers import ItalianCurrencyParserConfiguration
+from .italian.extractors import ItalianCurrencyExtractorConfiguration, ItalianAgeExtractorConfiguration, \
+    ItalianTemperatureExtractorConfiguration, ItalianDimensionExtractorConfiguration
+from .italian.parsers import ItalianCurrencyParserConfiguration, ItalianTemperatureParserConfiguration, \
+    ItalianDimensionParserConfiguration, ItalianAgeParserConfiguration
 
 
 class NumberWithUnitOptions(IntFlag):
@@ -252,6 +254,23 @@ class NumberWithUnitRecognizer(Recognizer[NumberWithUnitOptions]):
                 BaseMergedUnitExtractor(
                     ItalianCurrencyExtractorConfiguration()),
                 BaseMergedUnitParser(ItalianCurrencyParserConfiguration()))
+        ]))
+        self.register_model('TemperatureModel', Culture.Italian, lambda options: TemperatureModel([
+            ExtractorParserModel(
+                NumberWithUnitExtractor(
+                    ItalianTemperatureExtractorConfiguration()),
+                NumberWithUnitParser(ItalianTemperatureParserConfiguration()))
+        ]))
+        self.register_model('DimensionModel', Culture.Italian, lambda options: DimensionModel([
+            ExtractorParserModel(
+                NumberWithUnitExtractor(
+                    ItalianDimensionExtractorConfiguration()),
+                NumberWithUnitParser(ItalianDimensionParserConfiguration()))
+        ]))
+        self.register_model('AgeModel', Culture.Italian, lambda options: AgeModel([
+            ExtractorParserModel(
+                NumberWithUnitExtractor(ItalianAgeExtractorConfiguration()),
+                NumberWithUnitParser(ItalianAgeParserConfiguration()))
         ]))
         # endregion
 

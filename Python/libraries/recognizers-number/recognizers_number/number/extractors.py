@@ -38,7 +38,7 @@ class BaseNumberExtractor(Extractor):
         pass
 
     def extract(self, source: str) -> List[ExtractResult]:
-        if source is None or len(source.strip()) is 0:
+        if source is None or len(source.strip()) == 0:
             return list()
         result: List[ExtractResult] = list()
         match_source = dict()
@@ -69,13 +69,13 @@ class BaseNumberExtractor(Extractor):
                             x.end() - x.start()) == length)), None)
 
                     # extract negative numbers
-                    if self._negative_number_terms is not None:
-                        match = regex.search(self._negative_number_terms,
-                                             source[0:start])
-                        if match is not None:
-                            start = match.start()
-                            length = length + match.end() - match.start()
-                            substr = source[start:start + length].strip()
+                    # if self._negative_number_terms is not None:
+                    #     match = regex.search(self._negative_number_terms,
+                    #                          source[0:start])
+                    #     if match is not None:
+                    #         start = match.start()
+                    #         length = length + match.end() - match.start()
+                    #         substr = source[start:start + length].strip()
 
                     if src_match is not None:
                         value = ExtractResult()
@@ -308,7 +308,7 @@ class BaseMergedNumberExtractor(Extractor):
 
             match = regex.search(self._round_number_integer_regex_with_locks, ers[idx].text)
 
-            if not match or match.endpos != ers[idx].length:
+            if not match or match.end() != ers[idx].length:
                 groups[idx + 1] = groups[idx] + 1
                 continue
 
@@ -323,7 +323,7 @@ class BaseMergedNumberExtractor(Extractor):
 
             # Separated by connectors
             match = regex.search(self._connector_regex, middle_str)
-            if match and match.pos == 0 and match.endpos == len(middle_str):
+            if match and match.start() == 0 and match.end() == len(middle_str):
                 groups[idx + 1] = groups[idx]
             else:
                 groups[idx + 1] = groups[idx] + 1
